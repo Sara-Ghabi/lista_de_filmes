@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lista_de_filmes/data/models/movie.dart';
 import 'package:lista_de_filmes/pages/movie_list/movie_list_controller.dart';
 import 'package:lista_de_filmes/service_locator.dart';
 
@@ -14,8 +15,15 @@ class _HomeState extends State<MovieListPage> {
 
   @override
   void initState() {
+    print('Inicializando MovieListPage...');
     controller.init();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -40,11 +48,19 @@ class _HomeState extends State<MovieListPage> {
           ),
         ],
       ),
-      body: StreamBuilder(
+      body: StreamBuilder<List<Movie>>(
         stream: controller.stream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text('waiting');
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Aconteceu um erro: ${snapshot.error}'),
+            );
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(
+              child: Text('Filmes não encontrados'),
+            );
           }
 
           var movies = snapshot.data!;

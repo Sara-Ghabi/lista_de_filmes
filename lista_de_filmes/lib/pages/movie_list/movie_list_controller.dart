@@ -11,12 +11,23 @@ class MovieListController {
   Stream<List<Movie>> get stream => _controller.stream;
 
   void init() {
+    print('Inicializando MovieListController...');
     getMovies();
   }
 
   Future<void> getMovies() async {
-    var result = await api.getMovies();
+    try {
+      var result = await api.getMovies();
 
-    _controller.sink.add(result);
+      _controller.sink.add(result);
+    } catch (e) {
+      print('Ocorreu um erro ao pegar os filmes: $e');
+      _controller.sink.addError(e);
+    }
+
+  }
+
+  void dispose() {
+    _controller.close();
   }
 }
