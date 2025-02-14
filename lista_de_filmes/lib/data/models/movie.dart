@@ -1,27 +1,29 @@
 class Movie {
   Movie({
     required this.id,
-    required this.name,
-    required this.backDropPath,
-    required this.description,
+    this.name, 
+    this.backDropPath,
+    this.description,
     required this.urlImage,
-    required this.releaseDate,
-    required this.voteAverage,
+    this.releaseDate,
+    this.voteAverage, 
   });
+
   final int id;
-  final String name;
-  final String backDropPath;
-  final String description;
-  final String urlImage;
-  final String releaseDate;
-  final String voteAverage;
+  final String? name;
+  final String? backDropPath; 
+  final String? description; 
+  final String urlImage; 
+  final String? releaseDate; 
+  final String? voteAverage; 
 
   factory Movie.fromJson(Map<String, dynamic> json) => Movie(
-      id: json['id'],
-      name: json['title'] ?? 'Sem titulo',
-      backDropPath: json['backDropPath'],
-      description: json['overview'],
-      urlImage: json['poster_path'],
-      releaseDate: json['release_date'],
-      voteAverage: json['vote_average']);
+        id: json['id'] as int,
+        name: json['title'] as String?,
+        backDropPath: json['backdrop_path'] as String?, 
+        description: json['overview'] as String?,
+        urlImage: json['poster_path'] as String,
+        releaseDate: json['release_date'] as String?,
+        voteAverage: json['vote_average'].toString(), 
+      );
 }

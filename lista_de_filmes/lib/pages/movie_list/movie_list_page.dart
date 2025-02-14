@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lista_de_filmes/data/models/movie.dart';
 import 'package:lista_de_filmes/pages/movie_list/movie_list_controller.dart';
+import 'package:lista_de_filmes/pages/movie_list/widgets/movie_item_widget.dart';
 import 'package:lista_de_filmes/service_locator.dart';
+import 'package:lista_de_filmes/widgets/progress_indicator_widget.dart';
 
 class MovieListPage extends StatefulWidget {
   const MovieListPage({super.key});
@@ -52,7 +54,7 @@ class _HomeState extends State<MovieListPage> {
         stream: controller.stream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const ProgressIndicatorWidget();
           } else if (snapshot.hasError) {
             return Center(
               child: Text('Aconteceu um erro: ${snapshot.error}'),
@@ -69,9 +71,7 @@ class _HomeState extends State<MovieListPage> {
             itemBuilder: (context, index) {
               var movie = movies[index];
 
-              return ListTile(
-                title: Text(movie.name),
-              );
+              return MovieItemWidget(movie: movie,);
             },
           );
         },
