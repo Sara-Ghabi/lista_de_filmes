@@ -71,7 +71,7 @@ class _HomeState extends State<MovieListPage> {
             itemBuilder: (context, index) {
               var movie = movies[index];
 
-              return MovieItemWidget(movie: movie,);
+              return MovieItemWidget(movie: movie);
             },
           );
         },
