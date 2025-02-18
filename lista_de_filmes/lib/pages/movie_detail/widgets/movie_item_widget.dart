@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lista_de_filmes/data/models/movie.dart';
-import 'package:lista_de_filmes/pages/movie_detail/movie_detail_page.dart';
 
 class MovieItemWidget extends StatelessWidget {
   const MovieItemWidget({super.key, required this.movie});
@@ -51,12 +50,7 @@ class MovieItemWidget extends StatelessWidget {
         ],
       ),
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MovieDetailPage(movie: movie),
-          ),
-        );
+        print(movie.id);
       },
     );
   }
