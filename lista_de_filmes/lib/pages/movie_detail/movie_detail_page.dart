@@ -34,21 +34,21 @@ class _HomeState extends State<MovieDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    var movie = widget.movie;
     return Scaffold(
       appBar: AppBar(),
       body: StreamBuilder<Movie>(
         stream: controller.stream,
+        initialData: widget.movie,
         builder: (context, snapshot) {
-          //if (snapshot.connectionState == ConnectionState.waiting) {
-          //  return const ProgressIndicatorWidget();
-          //} else if (snapshot.hasError) {
-          //  return Center(
-          //    child: Text('Aconteceu um erro: ${snapshot.error}'),
-          //  );
-          //}
+          var movie = snapshot.data!;
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const ProgressIndicatorWidget();
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Aconteceu um erro: ${snapshot.error}'),
+            );
+          }
 
-          //var movies = snapshot.data!;
           return Text(movie.name ?? 'Sem título');
         },
       ),

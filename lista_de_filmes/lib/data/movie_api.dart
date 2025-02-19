@@ -20,4 +20,18 @@ class MovieApi {
       throw Exception('Something happing');
     }
   }
+
+  Future<Movie> getMovie(int id) async {
+    print('pegando o filme da API...');
+    var response = await http.get(Uri.parse('https://api.themoviedb.org/3/movie/$id?api_key=2979d76a4a08690b99797c97cef7a609'));
+
+    if (response.statusCode == 200) {
+      print('Detalhes do filme retornados com sucesso!');
+      final decodeData = json.decode(response.body);
+      return Movie.fromJson(decodeData);
+    } else {
+      print('falha ao pegar o filme: ${response.statusCode}');
+      throw Exception('Something happing');
+    }
+  }
 }

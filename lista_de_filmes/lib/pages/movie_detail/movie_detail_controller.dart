@@ -19,9 +19,9 @@ class MovieDetailController {
 
   Future<void> getMovie() async {
     try {
-      //var result = await api.getMovies();
+      var result = await api.getMovie(_movie.id);
 
-      //_controller.sink.add(result);
+      _controller.sink.add(result);
     } catch (e) {
       print('Ocorreu um erro ao pegar os filmes: $e');
       _controller.sink.addError(e);
