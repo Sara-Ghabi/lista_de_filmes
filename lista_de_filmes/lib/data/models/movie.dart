@@ -12,17 +12,23 @@ class Movie {
   })  : urlImage = posterPath != null
             ? 'https://image.tmdb.org/t/p/w500${posterPath}'
             : 'https://via.placeholder.com/150',
-        year = releaseDate != null ? DateFormat('yyyy').format(DateTime.parse(releaseDate)) : null;
+        year = releaseDate != null
+            ? DateFormat('yyyy').format(DateTime.parse(releaseDate))
+            : null,
+        urlImage2 = backDropPath != null
+            ? 'https://image.tmdb.org/t/p/w500${backDropPath}'
+            : 'https://via.placeholder.com/150';
 
   final int id;
   final String? name;
   final String? backDropPath;
+  final String urlImage2;
   final String? description;
   final String? posterPath;
   final String urlImage;
   final String? releaseDate;
   final String? year;
-  final String? voteAverage;
+  final double? voteAverage;
 
   factory Movie.fromJson(Map<String, dynamic> json) => Movie(
         id: json['id'] as int,
@@ -31,6 +37,6 @@ class Movie {
         description: json['overview'] as String?,
         posterPath: json['poster_path'] as String,
         releaseDate: json['release_date'] as String?,
-        voteAverage: json['vote_average'].toString(),
+        voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
       );
 }

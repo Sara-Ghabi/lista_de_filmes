@@ -33,15 +33,58 @@ class MovieDetailAboutWidget extends StatelessWidget {
                     color: Colors.amber,
                   ),
                 ),
-                Text('Média de votos: ${movie.voteAverage}'),
+                Text(
+                    'Média de votos: ${movie.voteAverage?.toStringAsFixed(1)}/10'),
               ],
             ),
             const SizedBox(height: 16),
             Text(
               'Sinopse',
-              style: Theme.of(context).textTheme.titleMedium,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-            Text(movie.description ?? 'Filme sem descrição'),
+            Text(
+              movie.description ?? 'Filme sem descrição',
+              style: TextStyle(fontSize: 17),
+            ),
+            SizedBox(height: 16),
+            SizedBox(
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Data de publicação: ',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          movie.releaseDate ?? 'Sem data de publicação',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
