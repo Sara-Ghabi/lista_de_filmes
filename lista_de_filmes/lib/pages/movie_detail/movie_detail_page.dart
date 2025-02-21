@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lista_de_filmes/data/models/movie.dart';
 import 'package:lista_de_filmes/pages/movie_detail/movie_detail_controller.dart';
-import 'package:lista_de_filmes/pages/movie_list/movie_list_controller.dart';
-import 'package:lista_de_filmes/pages/movie_list/widgets/movie_item_widget.dart';
+import 'package:lista_de_filmes/pages/movie_detail/widgets/movie_detail_about_widget.dart';
+import 'package:lista_de_filmes/pages/movie_detail/widgets/movie_detail_cover_widget.dart';
 import 'package:lista_de_filmes/service_locator.dart';
 import 'package:lista_de_filmes/widgets/progress_indicator_widget.dart';
 
@@ -35,7 +35,6 @@ class _HomeState extends State<MovieDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: StreamBuilder<Movie>(
         stream: controller.stream,
         initialData: widget.movie,
@@ -49,7 +48,12 @@ class _HomeState extends State<MovieDetailPage> {
             );
           }
 
-          return Text(movie.name ?? 'Sem título');
+          return CustomScrollView(
+            slivers: [
+              MovieDetailCoverWidget(movie: movie),
+              MovieDetailAboutWidget(movie: movie),
+            ],
+          );
         },
       ),
     );
