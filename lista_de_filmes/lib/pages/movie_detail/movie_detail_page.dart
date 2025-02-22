@@ -35,6 +35,8 @@ class _HomeState extends State<MovieDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Color.alphaBlend(
+      //     Colors.black12, Theme.of(context).scaffoldBackgroundColor),
       body: StreamBuilder<Movie>(
         stream: controller.stream,
         initialData: widget.movie,

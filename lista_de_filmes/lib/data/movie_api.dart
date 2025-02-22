@@ -21,6 +21,20 @@ class MovieApi {
     }
   }
 
+  Future<List<Movie>> searchMovie(String query) async {
+    print('procurando o filme da API...');
+    var response = await http.get(Uri.parse('https://api.themoviedb.org/3/search/movie?api_key=2979d76a4a08690b99797c97cef7a609&query=$query&include_adult=false&language=en-US&page=1'));
+
+    if (response.statusCode == 200) {
+      print('filmes retornados com sucesso!');
+      final decodeData = json.decode(response.body)['results'] as List;
+      return decodeData.map((movie) => Movie.fromJson(movie)).toList();
+    } else {
+      print('falha ao pegar os filmes: ${response.statusCode}');
+      throw Exception('Something happing');
+    }
+  }
+
   Future<Movie> getMovie(int id) async {
     print('pegando o filme da API...');
     var response = await http.get(Uri.parse('https://api.themoviedb.org/3/movie/$id?api_key=2979d76a4a08690b99797c97cef7a609'));
